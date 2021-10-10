@@ -55,6 +55,10 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
     this.configuration = c;
   }
 
+  /**
+   * yuhao: 以下几个方法会调用abstract方法，那些方法具体由子类实现
+   */
+
   @Override
   public void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
     if (parameter == null) {
@@ -110,6 +114,7 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
 
   /**
    * Gets the nullable result.
+   * yuhao: abstract方法用来等待子类实现
    *
    * @param rs
    *          the rs

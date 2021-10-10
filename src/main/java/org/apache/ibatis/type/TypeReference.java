@@ -29,13 +29,19 @@ public abstract class TypeReference<T> {
 
   private final Type rawType;
 
+  /**
+   * yuhao: protected 只有同包 或者 子类 可以 实例化TypeReference类
+   */
   protected TypeReference() {
     rawType = getSuperclassTypeParameter(getClass());
   }
 
   Type getSuperclassTypeParameter(Class<?> clazz) {
+    // yuhao: 返回clazz的直接超类的Type
     Type genericSuperclass = clazz.getGenericSuperclass();
+    // yuhao: 如果当前子类的直接超类是Class类型（而不是参数化类型ParameterizedType）
     if (genericSuperclass instanceof Class) {
+      // yuhao: 递归向上查找
       // try to climb up the hierarchy until meet something useful
       if (TypeReference.class != genericSuperclass) {
         return getSuperclassTypeParameter(clazz.getSuperclass());
@@ -45,8 +51,10 @@ public abstract class TypeReference<T> {
         + "Remove the extension or add a type parameter to it.");
     }
 
+    // yuhao: 得到实际的参数类型T
     Type rawType = ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0];
     // TODO remove this when Reflector is fixed to return Types
+    // yuhao: 如果rawType仍然是类型化参数 ， 返回定义类型（例如rawType为List<Integer> , 则getRawType返回List）
     if (rawType instanceof ParameterizedType) {
       rawType = ((ParameterizedType) rawType).getRawType();
     }
