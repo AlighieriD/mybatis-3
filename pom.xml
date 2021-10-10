@@ -194,6 +194,18 @@
     </dependency>
 
     <!-- Test dependencies -->
+      <!--见 https://junit.org/junit5/docs/current/user-guide/#running-tests-ide-intellij-idea-->
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <!---->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -287,6 +299,20 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <!--见 https://junit.org/junit5/docs/current/user-guide/#running-tests-ide-intellij-idea-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.8.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <!---->
 
   <build>
     <plugins>
